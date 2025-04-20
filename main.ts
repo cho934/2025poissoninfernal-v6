@@ -1,3 +1,13 @@
+function doSomethingLeft2 () {
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 110)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 120)
+    basic.pause(7000)
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 0)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 170)
+    basic.pause(1000)
+    maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 120)
+    basic.pause(2000)
+}
 function StopMotors () {
     maqueen.motorStop(maqueen.Motors.All)
 }
@@ -11,18 +21,14 @@ function Runrun () {
     if (color == 1 || color == 0) {
         if (color == 1) {
             detection = 1
-            runUntilDistanceMM(1200, 100)
-            doTurnLeft(120, 1000)
-            runUntilDistanceMM(400, 100)
+            doSomethingLeft2()
             detection = 0
             StopMotors()
         }
     }
     if (color == 2) {
         detection = 1
-        runUntilDistanceMM(1200, 100)
-        doTurnRight(120, 1000)
-        runUntilDistanceMM(400, 100)
+        doSomethingRight()
         detection = 0
         StopMotors()
     }
@@ -63,19 +69,11 @@ function doUltraSonic () {
     	
     }
 }
-function doSomething () {
-    maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 120)
-    basic.pause(7000)
-    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 0)
-    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 120)
-    basic.pause(1000)
-    maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 120)
-    basic.pause(2000)
-}
 function runUntilDistanceMM (distance_mm: number, speed: number) {
     startDistance_mm = singleEncoder.getDistance()
     while (singleEncoder.getDistance() - startDistance_mm < distance_mm) {
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, speed)
+        serial.writeValue("dist", singleEncoder.getDistance())
     }
     StopMotors()
 }
@@ -93,6 +91,16 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
     maqueen.motorStop(maqueen.Motors.All)
     detection = 0
 })
+function doSomethingRight () {
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 120)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 110)
+    basic.pause(7000)
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 170)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 0)
+    basic.pause(1000)
+    maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 120)
+    basic.pause(2000)
+}
 input.onLogoEvent(TouchButtonEvent.Released, function () {
     basic.pause(2000)
     maqueen.servoRun(maqueen.Servos.S1, 90)
@@ -126,11 +134,6 @@ true,
 )
 singleEncoder.start()
 basic.clearScreen()
-if (singleEncoder.getEncoder1Connected()) {
-    basic.showIcon(IconNames.Heart)
-} else {
-    basic.showIcon(IconNames.No)
-}
 maqueen.motorStop(maqueen.Motors.All)
 maqueen.servoRun(maqueen.Servos.S2, 90)
 basic.forever(function () {
@@ -166,6 +169,11 @@ basic.forever(function () {
 })
 control.inBackground(function () {
     while (true) {
+        singleEncoder.getValues()
+        serial.writeValue("dist", singleEncoder.getDistance())
+        if (singleEncoder.getEncoder1Connected()) {
+        	
+        }
         if (detection == 1) {
             doVL53L1X()
         }
@@ -175,9 +183,5 @@ control.inBackground(function () {
             maqueen.servoRun(maqueen.Servos.S2, 60)
             basic.pause(200)
         }
-        if (singleEncoder.getEncoder1Connected()) {
-            serial.writeNumber(singleEncoder.getDistance())
-        }
-        basic.pause(200)
     }
 })
