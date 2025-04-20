@@ -1,0 +1,29 @@
+{
+    "name": "2025PoissonInfernal V6",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
+        "vl53l1x-calliopemini": "github:cho934/vl53l1x-calliope#master",
+        "pxt-ams_as5048b": "github:cho934/pxt-ams_as5048b#master",
+        "maqueen": "github:dfrobot/pxt-maqueen#v1.7.15",
+        "servo": "*"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "7.0.61",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj"
+}
