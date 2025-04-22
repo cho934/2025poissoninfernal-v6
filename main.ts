@@ -93,7 +93,7 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
 })
 function doSomethingRight () {
     maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 120)
-    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 110)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 120)
     basic.pause(7000)
     maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 170)
     maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 0)
