@@ -142,7 +142,6 @@ let init_dist_trajet = 0
 let distance_parcourue_mm = 0
 let motor_stop = 0
 let bougiewoogie = 0
-basic.pause(500)
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
 bougiewoogie = 0
 motor_stop = 0
@@ -153,6 +152,7 @@ init_dist_trajet = 0
 detection = 0
 serial.redirectToUSB()
 Maqueen_V5.I2CInit()
+basic.pause(500)
 VL53L1X.init()
 VL53L1X.setDistanceMode(VL53L1X.DistanceMode.Short)
 VL53L1X.setMeasurementTimingBudget(50000)
@@ -222,7 +222,7 @@ control.inBackground(function () {
     }
 })
 control.inBackground(function () {
-    basic.pause(1000)
+    basic.pause(2000)
     while (tirette == 0) {
         basic.pause(200)
     }
