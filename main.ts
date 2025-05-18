@@ -9,7 +9,7 @@ function doSomethingLeft2 () {
     basic.pause(2000)
 }
 function doSomethingLeft3 () {
-    runLeftRight(200, 200, 150)
+    runLeftRight(200, 200, 1000)
     runLeftRight(0, 200, 100)
     runLeftRight(100, 100, 50)
 }
@@ -68,6 +68,8 @@ function doVL53L1X () {
     distance = VL53L1X.readSingle()
     serial.writeValue("dist", distance)
     if (distance < 100) {
+        motor_stop = 1
+    } else {
         motor_stop = 0
     }
 }
@@ -77,8 +79,8 @@ function doTurnLeft (speed: number, time_ms: number) {
     basic.pause(time_ms)
 }
 input.onButtonPressed(Button.A, function () {
-    bougiewoogie = 0
     basic.showIcon(IconNames.Skull)
+    bougiewoogie = 0
     color = 1
     radio.sendNumber(1)
     radio.sendNumber(1)
@@ -103,8 +105,8 @@ function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number
     StopMotors()
 }
 input.onButtonPressed(Button.B, function () {
-    bougiewoogie = 0
     basic.showIcon(IconNames.Diamond)
+    bougiewoogie = 0
     color = 2
     radio.sendNumber(2)
     radio.sendNumber(2)
@@ -117,7 +119,6 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
     distance_parcourue_mm = 0
     detection = 1
     Runrun()
-    Endflower2()
     maqueen.motorStop(maqueen.Motors.All)
     detection = 0
 })
@@ -127,33 +128,31 @@ function doSomethingRight () {
     runLeftRight(100, 100, 150)
 }
 input.onLogoEvent(TouchButtonEvent.Released, function () {
-    basic.pause(2000)
-    maqueen.servoRun(maqueen.Servos.S1, 90)
-    maqueen.servoRun(maqueen.Servos.S2, 90)
-    servos.P0.setAngle(90)
+	
 })
-let tirette = 0
-let distance = 0
 let dist_run_mm = 0
 let init_dist_trajet = 0
 let color = 0
 let startDistance_mm = 0
 let singleEncoder: SingleMagEncoder.SingleMagEncoder = null
-let detection = 0
-let bougiewoogie = 0
 let motor_stop = 0
+let detection = 0
 let distance_parcourue_mm = 0
+let bougiewoogie = 0
+let distance = 0
+distance = 0
+bougiewoogie = 0
+let tirette = 0
 let duration = 85000
 distance_parcourue_mm = 0
+detection = 0
+motor_stop = 0
 serial.redirectToUSB()
 Maqueen_V5.I2CInit()
 VL53L1X.init()
 VL53L1X.setDistanceMode(VL53L1X.DistanceMode.Short)
 VL53L1X.setMeasurementTimingBudget(50000)
-motor_stop = 0
-bougiewoogie = 0
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
-detection = 0
 radio.setFrequencyBand(64)
 radio.setTransmitPower(7)
 radio.setGroup(169)
@@ -217,4 +216,12 @@ control.inBackground(function () {
             basic.pause(200)
         }
     }
+})
+control.inBackground(function () {
+    basic.pause(500)
+    while (tirette == 0) {
+        basic.pause(200)
+    }
+    basic.pause(99000)
+    Endflower2()
 })
