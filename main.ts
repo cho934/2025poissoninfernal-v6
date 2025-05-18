@@ -1,12 +1,17 @@
 function doSomethingLeft2 () {
-    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 110)
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 185)
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 180)
+    basic.pause(5000)
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, 0)
     maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 120)
-    basic.pause(7000)
-    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 0)
-    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 170)
-    basic.pause(1000)
+    basic.pause(500)
     maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 120)
     basic.pause(2000)
+}
+function doSomethingLeft3 () {
+    runLeftRight(200, 200, 150)
+    runLeftRight(0, 200, 100)
+    runLeftRight(100, 100, 50)
 }
 function StopMotors () {
     maqueen.motorStop(maqueen.Motors.All)
@@ -21,7 +26,7 @@ function Runrun () {
     if (color == 1 || color == 0) {
         if (color == 1) {
             detection = 1
-            doSomethingLeft2()
+            doSomethingLeft3()
             detection = 0
             StopMotors()
         }
@@ -36,6 +41,24 @@ function Runrun () {
 function Endflower2 () {
     bougiewoogie = 1
 }
+function runLeftRight (left: number, right: number, distance_mm: number) {
+    init_dist_trajet = distance_parcourue_mm
+    dist_run_mm = distance_parcourue_mm - init_dist_trajet
+    while (dist_run_mm < distance_mm) {
+        dist_run_mm = distance_parcourue_mm - init_dist_trajet
+        if (motor_stop == 0) {
+            maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, left)
+            maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, right)
+        } else {
+            maqueen.motorStop(maqueen.Motors.All)
+        }
+        led.plotBarGraph(
+        distance,
+        300
+        )
+        basic.pause(2)
+    }
+}
 function doTurnRight (speed: number, time_ms: number) {
     maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, speed)
     maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 0)
@@ -44,8 +67,8 @@ function doTurnRight (speed: number, time_ms: number) {
 function doVL53L1X () {
     distance = VL53L1X.readSingle()
     serial.writeValue("dist", distance)
-    if (distance < 70) {
-        maqueen.motorStop(maqueen.Motors.All)
+    if (distance < 100) {
+        motor_stop = 0
     }
 }
 function doTurnLeft (speed: number, time_ms: number) {
@@ -54,8 +77,10 @@ function doTurnLeft (speed: number, time_ms: number) {
     basic.pause(time_ms)
 }
 input.onButtonPressed(Button.A, function () {
+    bougiewoogie = 0
     basic.showIcon(IconNames.Skull)
     color = 1
+    radio.sendNumber(1)
     radio.sendNumber(1)
     radio.sendString("YELLOW")
 })
@@ -69,7 +94,7 @@ function doUltraSonic () {
     	
     }
 }
-function runUntilDistanceMM (distance_mm: number, speed: number) {
+function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number) {
     startDistance_mm = singleEncoder.getDistance()
     while (singleEncoder.getDistance() - startDistance_mm < distance_mm) {
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, speed)
@@ -78,13 +103,18 @@ function runUntilDistanceMM (distance_mm: number, speed: number) {
     StopMotors()
 }
 input.onButtonPressed(Button.B, function () {
+    bougiewoogie = 0
     basic.showIcon(IconNames.Diamond)
     color = 2
+    radio.sendNumber(2)
     radio.sendNumber(2)
     radio.sendString("BLUE")
 })
 input.onLogoEvent(TouchButtonEvent.Touched, function () {
     basic.pause(1000)
+    singleEncoder.reset()
+    singleEncoder.resetTotalCount()
+    distance_parcourue_mm = 0
     detection = 1
     Runrun()
     Endflower2()
@@ -92,14 +122,9 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
     detection = 0
 })
 function doSomethingRight () {
-    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 120)
-    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 120)
-    basic.pause(7000)
-    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 170)
-    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 0)
-    basic.pause(1000)
-    maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 120)
-    basic.pause(2000)
+    runLeftRight(200, 200, 150)
+    runLeftRight(200, 0, 100)
+    runLeftRight(100, 100, 150)
 }
 input.onLogoEvent(TouchButtonEvent.Released, function () {
     basic.pause(2000)
@@ -109,17 +134,23 @@ input.onLogoEvent(TouchButtonEvent.Released, function () {
 })
 let tirette = 0
 let distance = 0
+let dist_run_mm = 0
+let init_dist_trajet = 0
 let color = 0
 let startDistance_mm = 0
 let singleEncoder: SingleMagEncoder.SingleMagEncoder = null
 let detection = 0
 let bougiewoogie = 0
+let motor_stop = 0
+let distance_parcourue_mm = 0
 let duration = 85000
+distance_parcourue_mm = 0
 serial.redirectToUSB()
 Maqueen_V5.I2CInit()
 VL53L1X.init()
 VL53L1X.setDistanceMode(VL53L1X.DistanceMode.Short)
 VL53L1X.setMeasurementTimingBudget(50000)
+motor_stop = 0
 bougiewoogie = 0
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
 detection = 0
@@ -140,6 +171,10 @@ basic.forever(function () {
     while (color == 0) {
         basic.pause(100)
     }
+    if (singleEncoder.getEncoder1Connected()) {
+        singleEncoder.reset()
+        singleEncoder.resetTotalCount()
+    }
     // DFRobotMaqueenPlus.clearDistance(Motors.ALL)
     while (input.pinIsPressed(TouchPin.P0)) {
         tirette = 0
@@ -152,10 +187,6 @@ basic.forever(function () {
     }
     radio.sendNumber(44)
     tirette = 1
-    if (singleEncoder.getEncoder1Connected()) {
-        singleEncoder.reset()
-        singleEncoder.resetTotalCount()
-    }
     basic.clearScreen()
     basic.showIcon(IconNames.Angry)
     basic.pause(duration)
@@ -169,15 +200,17 @@ basic.forever(function () {
 })
 control.inBackground(function () {
     while (true) {
-        singleEncoder.getValues()
-        serial.writeValue("dist", singleEncoder.getDistance())
         if (singleEncoder.getEncoder1Connected()) {
-        	
+            singleEncoder.getValues()
+            distance_parcourue_mm = singleEncoder.getDistance()
+            serial.writeValue("dist parcourue", distance_parcourue_mm)
+            basic.pause(10)
         }
         if (detection == 1) {
             doVL53L1X()
         }
         if (bougiewoogie == 1) {
+            maqueen.motorStop(maqueen.Motors.All)
             maqueen.servoRun(maqueen.Servos.S2, 110)
             basic.pause(200)
             maqueen.servoRun(maqueen.Servos.S2, 60)
