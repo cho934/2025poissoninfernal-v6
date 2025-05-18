@@ -9,9 +9,9 @@ function doSomethingLeft2 () {
     basic.pause(2000)
 }
 function doSomethingLeft3 () {
-    runLeftRight(200, 200, 1000)
-    runLeftRight(0, 200, 100)
-    runLeftRight(100, 100, 50)
+    runLeftRight(200, 200, 150)
+    runLeftRight(0, 200, 110)
+    runLeftRight(100, 100, 150)
 }
 function StopMotors () {
     maqueen.motorStop(maqueen.Motors.All)
@@ -69,8 +69,6 @@ function doVL53L1X () {
     serial.writeValue("dist", distance)
     if (distance < 100) {
         motor_stop = 1
-    } else {
-        motor_stop = 0
     }
 }
 function doTurnLeft (speed: number, time_ms: number) {
@@ -124,35 +122,34 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
 })
 function doSomethingRight () {
     runLeftRight(200, 200, 150)
-    runLeftRight(200, 0, 100)
+    runLeftRight(200, 0, 110)
     runLeftRight(100, 100, 150)
 }
 input.onLogoEvent(TouchButtonEvent.Released, function () {
 	
 })
+let tirette = 0
+let distance = 0
 let dist_run_mm = 0
 let init_dist_trajet = 0
 let color = 0
 let startDistance_mm = 0
 let singleEncoder: SingleMagEncoder.SingleMagEncoder = null
-let motor_stop = 0
 let detection = 0
-let distance_parcourue_mm = 0
 let bougiewoogie = 0
-let distance = 0
-distance = 0
-bougiewoogie = 0
-let tirette = 0
+let motor_stop = 0
+let distance_parcourue_mm = 0
 let duration = 85000
 distance_parcourue_mm = 0
-detection = 0
-motor_stop = 0
 serial.redirectToUSB()
 Maqueen_V5.I2CInit()
 VL53L1X.init()
 VL53L1X.setDistanceMode(VL53L1X.DistanceMode.Short)
 VL53L1X.setMeasurementTimingBudget(50000)
+motor_stop = 0
+bougiewoogie = 0
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
+detection = 0
 radio.setFrequencyBand(64)
 radio.setTransmitPower(7)
 radio.setGroup(169)
@@ -218,7 +215,6 @@ control.inBackground(function () {
     }
 })
 control.inBackground(function () {
-    basic.pause(500)
     while (tirette == 0) {
         basic.pause(200)
     }
