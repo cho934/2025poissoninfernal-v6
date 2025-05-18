@@ -9,7 +9,7 @@ function doSomethingLeft2 () {
     basic.pause(2000)
 }
 function doSomethingLeft3 () {
-    runLeftRight(200, 200, 1200)
+    runLeftRight(205, 200, 1200)
     runLeftRight(0, 200, 110)
     runLeftRight(100, 100, 150)
     Endflower2()
@@ -124,7 +124,7 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
     detection = 0
 })
 function doSomethingRight () {
-    runLeftRight(200, 200, 1200)
+    runLeftRight(200, 205, 1200)
     runLeftRight(200, 0, 110)
     runLeftRight(100, 100, 150)
     Endflower2()
@@ -142,6 +142,7 @@ let init_dist_trajet = 0
 let distance_parcourue_mm = 0
 let motor_stop = 0
 let bougiewoogie = 0
+basic.pause(500)
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
 bougiewoogie = 0
 motor_stop = 0
