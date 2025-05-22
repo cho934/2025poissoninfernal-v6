@@ -1,5 +1,6 @@
 {
     "name": "2025PoissonInfernal V6",
+    "version": "1.0.0",
     "description": "",
     "dependencies": {
         "core": "*",
