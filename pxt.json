@@ -5,7 +5,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "vl53l1x-calliopemini": "github:cho934/vl53l1x-calliope#master",
+        "vl53l1x-calliopemini": "github:cho934/vl53l1x-calliope#v1.0.0",
         "pxt-ams_as5048b": "github:cho934/pxt-ams_as5048b#master",
         "maqueen": "github:dfrobot/pxt-maqueen#v1.7.15",
         "servo": "*"
@@ -19,7 +19,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "7.0.61",
+        "target": "7.1.36",
         "targetId": "microbit"
     },
     "supportedTargets": [
