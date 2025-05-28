@@ -11,7 +11,8 @@ function doSomethingLeft2 () {
 function doSomethingLeft3 () {
     runLeftRight(205, 200, 1200)
     runLeftRight(0, 200, 110)
-    runLeftRight(100, 100, 150)
+    runLeftRight(100, 100, 250)
+    maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
 }
 function StopMotors () {
@@ -46,7 +47,8 @@ function runLeftRight (left: number, right: number, distance_mm: number) {
     init_dist_trajet = distance_parcourue_mm
     dist_run_mm = distance_parcourue_mm - init_dist_trajet
     while (dist_run_mm < distance_mm) {
-        dist_run_mm = distance_parcourue_mm - init_dist_trajet
+        serial.writeValue("dist_run_mm", dist_run_mm)
+        serial.writeValue("distance_mm", distance_mm)
         if (motor_stop == 0) {
             maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, left)
             maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, right)
@@ -57,8 +59,10 @@ function runLeftRight (left: number, right: number, distance_mm: number) {
         distance,
         300
         )
-        basic.pause(2)
+        basic.pause(10)
+        dist_run_mm = distance_parcourue_mm - init_dist_trajet
     }
+    maqueen.motorStop(maqueen.Motors.All)
 }
 function doTurnRight (speed: number, time_ms: number) {
     maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, speed)
@@ -87,24 +91,6 @@ input.onButtonPressed(Button.A, function () {
     radio.sendNumber(1)
     radio.sendString("YELLOW")
 })
-function doUltraSonic () {
-    distance = maqueen.Ultrasonic()
-    serial.writeValue("dist", distance)
-    if (distance < 15) {
-        serial.writeValue("x", 1)
-        maqueen.motorStop(maqueen.Motors.All)
-    } else {
-    	
-    }
-}
-function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number) {
-    startDistance_mm = singleEncoder.getDistance()
-    while (singleEncoder.getDistance() - startDistance_mm < distance_mm) {
-        maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, speed)
-        serial.writeValue("dist", singleEncoder.getDistance())
-    }
-    StopMotors()
-}
 input.onButtonPressed(Button.B, function () {
     basic.showIcon(IconNames.Diamond)
     bougiewoogie = 0
@@ -113,6 +99,14 @@ input.onButtonPressed(Button.B, function () {
     radio.sendNumber(2)
     radio.sendString("BLUE")
 })
+function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number) {
+    startDistance_mm = singleEncoder.getDistance()
+    while (singleEncoder.getDistance() - startDistance_mm < distance_mm) {
+        maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, speed)
+        serial.writeValue("dist", singleEncoder.getDistance())
+    }
+    StopMotors()
+}
 input.onLogoEvent(TouchButtonEvent.Touched, function () {
     basic.pause(1000)
     singleEncoder.reset()
@@ -126,12 +120,14 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
 function doSomethingRight () {
     runLeftRight(200, 205, 1200)
     runLeftRight(200, 0, 110)
-    runLeftRight(100, 100, 150)
+    runLeftRight(100, 100, 250)
+    maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
 }
 input.onLogoEvent(TouchButtonEvent.Released, function () {
 	
 })
+let tirette = 0
 let distance = 0
 let dist_run_mm = 0
 let color = 0
@@ -145,7 +141,6 @@ let bougiewoogie = 0
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
 bougiewoogie = 0
 motor_stop = 0
-let tirette = 0
 let duration = 85000
 distance_parcourue_mm = 0
 init_dist_trajet = 0
@@ -207,8 +202,8 @@ control.inBackground(function () {
             singleEncoder.getValues()
             distance_parcourue_mm = singleEncoder.getDistance()
             serial.writeValue("dist parcourue", distance_parcourue_mm)
-            basic.pause(10)
         }
+        basic.pause(30)
         if (detection == 1) {
             doVL53L1X()
         }
