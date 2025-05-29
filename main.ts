@@ -184,6 +184,16 @@ basic.forever(function () {
         basic.pause(200)
     }
     radio.sendNumber(44)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    basic.pause(50)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
     tirette = 1
     basic.clearScreen()
     basic.showIcon(IconNames.Angry)
