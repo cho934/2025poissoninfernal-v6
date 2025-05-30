@@ -92,6 +92,10 @@ input.onButtonPressed(Button.A, function () {
     radio.sendNumber(1)
     radio.sendNumber(1)
     radio.sendString("YELLOW")
+    radio.sendString("YELLOW")
+    radio.sendString("YELLOW")
+    radio.sendString("YELLOW")
+    radio.sendString("YELLOW")
 })
 input.onButtonPressed(Button.B, function () {
     basic.showIcon(IconNames.Diamond)
@@ -101,6 +105,10 @@ input.onButtonPressed(Button.B, function () {
     radio.sendNumber(2)
     radio.sendNumber(2)
     radio.sendNumber(2)
+    radio.sendString("BLUE")
+    radio.sendString("BLUE")
+    radio.sendString("BLUE")
+    radio.sendString("BLUE")
     radio.sendString("BLUE")
 })
 function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number) {
@@ -128,9 +136,6 @@ function doSomethingRight () {
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
 }
-input.onLogoEvent(TouchButtonEvent.Released, function () {
-	
-})
 let tirette = 0
 let distance = 0
 let dist_run_mm = 0
