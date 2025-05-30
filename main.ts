@@ -10,8 +10,8 @@ function doSomethingLeft2 () {
 }
 function doSomethingLeft3 () {
     runLeftRight(205, 200, 1200)
-    runLeftRight(0, 200, 110)
-    runLeftRight(100, 100, 250)
+    runLeftRight(0, 150, 110)
+    runLeftRight(205, 200, 250)
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
 }
@@ -89,12 +89,16 @@ input.onButtonPressed(Button.A, function () {
     color = 1
     radio.sendNumber(1)
     radio.sendNumber(1)
+    radio.sendNumber(1)
+    radio.sendNumber(1)
     radio.sendString("YELLOW")
 })
 input.onButtonPressed(Button.B, function () {
     basic.showIcon(IconNames.Diamond)
     bougiewoogie = 0
     color = 2
+    radio.sendNumber(2)
+    radio.sendNumber(2)
     radio.sendNumber(2)
     radio.sendNumber(2)
     radio.sendString("BLUE")
@@ -119,8 +123,8 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
 })
 function doSomethingRight () {
     runLeftRight(200, 205, 1200)
-    runLeftRight(200, 0, 110)
-    runLeftRight(100, 100, 250)
+    runLeftRight(150, 0, 110)
+    runLeftRight(200, 205, 250)
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
 }
@@ -183,6 +187,12 @@ basic.forever(function () {
         }
         basic.pause(200)
     }
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    radio.sendNumber(44)
+    basic.pause(50)
     radio.sendNumber(44)
     radio.sendNumber(44)
     radio.sendNumber(44)
