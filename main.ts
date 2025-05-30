@@ -87,29 +87,33 @@ input.onButtonPressed(Button.A, function () {
     basic.showIcon(IconNames.Skull)
     bougiewoogie = 0
     color = 1
-    radio.sendNumber(1)
-    radio.sendNumber(1)
-    radio.sendNumber(1)
-    radio.sendNumber(1)
+    radio.sendNumber(11)
+    radio.sendNumber(11)
+    radio.sendNumber(11)
+    radio.sendNumber(11)
     radio.sendString("YELLOW")
     radio.sendString("YELLOW")
     radio.sendString("YELLOW")
     radio.sendString("YELLOW")
     radio.sendString("YELLOW")
+    radio.sendNumber(11)
+    radio.sendNumber(11)
 })
 input.onButtonPressed(Button.B, function () {
     basic.showIcon(IconNames.Diamond)
     bougiewoogie = 0
     color = 2
-    radio.sendNumber(2)
-    radio.sendNumber(2)
-    radio.sendNumber(2)
-    radio.sendNumber(2)
+    radio.sendNumber(22)
+    radio.sendNumber(22)
+    radio.sendNumber(22)
+    radio.sendNumber(22)
     radio.sendString("BLUE")
     radio.sendString("BLUE")
     radio.sendString("BLUE")
     radio.sendString("BLUE")
     radio.sendString("BLUE")
+    radio.sendNumber(22)
+    radio.sendNumber(22)
 })
 function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number) {
     startDistance_mm = singleEncoder.getDistance()
@@ -190,7 +194,7 @@ basic.forever(function () {
         } else {
             basic.showIcon(IconNames.Skull)
         }
-        basic.pause(200)
+        basic.pause(50)
     }
     radio.sendNumber(44)
     radio.sendNumber(44)
