@@ -10,7 +10,7 @@ function doSomethingLeft2 () {
 }
 function doSomethingLeft3 () {
     runLeftRight(205, 200, 1200)
-    runLeftRight(0, 150, 110)
+    runLeftRight(0, 150, 120)
     runLeftRight(205, 200, 250)
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
@@ -135,7 +135,7 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
 })
 function doSomethingRight () {
     runLeftRight(200, 205, 1200)
-    runLeftRight(150, 0, 110)
+    runLeftRight(150, 0, 120)
     runLeftRight(200, 205, 250)
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
