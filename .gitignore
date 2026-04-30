@@ -10,3 +10,10 @@ _site
 *.tgz
 .header.json
 .simstate.json
+
+# Tooling local (non versionne)
+.claude/
+package.json
+package-lock.json
+.header.json
+_history

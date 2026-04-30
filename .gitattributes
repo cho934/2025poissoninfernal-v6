@@ -1,0 +1,5 @@
+# Forcer LF pour tous les fichiers texte (l'editeur MakeCode envoie en LF,
+# Git autocrlf=true convertit en CRLF au checkout sous Windows -> mismatch
+# de prevContent -> POST /api/pkg renvoie 409 Conflict, save echoue, l'editeur
+# bascule en mode memory et perd les modifs).
+* text=auto eol=lf

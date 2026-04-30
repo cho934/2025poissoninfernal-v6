@@ -7,14 +7,13 @@
         "radio": "*",
         "microphone": "*",
         "vl53l1x-calliopemini": "github:cho934/vl53l1x-calliope#v1.0.0",
-        "pxt-ams_as5048b": "github:cho934/pxt-ams_as5048b#master",
+        "pxt-ams_as5048b": "github:cho934/pxt-ams_as5048b#v1.0.0",
         "maqueen": "github:dfrobot/pxt-maqueen#v1.7.15",
         "servo": "*"
     },
     "files": [
         "main.blocks",
-        "main.ts",
-        "README.md"
+        "main.ts"
     ],
     "testFiles": [
         "test.ts"

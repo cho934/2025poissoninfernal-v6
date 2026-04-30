@@ -151,6 +151,13 @@ let init_dist_trajet = 0
 let distance_parcourue_mm = 0
 let motor_stop = 0
 let bougiewoogie = 0
+basic.showLeds(`
+    . . . . .
+    . . . . .
+    . . # . .
+    . . . . .
+    . . . . .
+    `)
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
 bougiewoogie = 0
 motor_stop = 0
