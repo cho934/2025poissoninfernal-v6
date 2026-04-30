@@ -9,8 +9,8 @@ function doSomethingLeft2 () {
     basic.pause(2000)
 }
 function doSomethingLeft3 () {
-    runLeftRight(205, 200, 1200)
-    runLeftRight(0, 150, 120)
+    runLeftRight(205, 200, 600)
+    runLeftRight(100, 150, 60)
     runLeftRight(205, 200, 250)
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
@@ -134,8 +134,8 @@ function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number
     StopMotors()
 }
 function doSomethingRight () {
-    runLeftRight(200, 205, 1200)
-    runLeftRight(150, 0, 120)
+    runLeftRight(200, 205, 600)
+    runLeftRight(150, 100, 60)
     runLeftRight(200, 205, 250)
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
@@ -155,7 +155,7 @@ basic.showLeds(`
     . . # . .
     . . # . .
     . . # . .
-    . . . . .
+    . . # . .
     . . . . .
     `)
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
@@ -255,7 +255,7 @@ control.inBackground(function () {
 control.inBackground(function () {
     basic.pause(2000)
     while (tirette == 0) {
-        basic.pause(200)
+        basic.pause(100)
     }
     basic.pause(99500)
     Endflower2()
