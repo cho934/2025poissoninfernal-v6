@@ -152,8 +152,8 @@ let distance_parcourue_mm = 0
 let motor_stop = 0
 let bougiewoogie = 0
 basic.showLeds(`
-    . . . . .
-    . . . . .
+    . . # . .
+    . . # . .
     . . # . .
     . . . . .
     . . . . .
