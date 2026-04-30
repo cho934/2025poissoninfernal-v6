@@ -64,6 +64,16 @@ function runLeftRight (left: number, right: number, distance_mm: number) {
     }
     maqueen.motorStop(maqueen.Motors.All)
 }
+input.onLogoEvent(TouchButtonEvent.Touched, function () {
+    basic.pause(1000)
+    singleEncoder.reset()
+    singleEncoder.resetTotalCount()
+    distance_parcourue_mm = 0
+    detection = 1
+    Runrun()
+    maqueen.motorStop(maqueen.Motors.All)
+    detection = 0
+})
 function doTurnRight (speed: number, time_ms: number) {
     maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, speed)
     maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 0)
@@ -123,16 +133,6 @@ function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number
     }
     StopMotors()
 }
-input.onLogoEvent(TouchButtonEvent.Touched, function () {
-    basic.pause(1000)
-    singleEncoder.reset()
-    singleEncoder.resetTotalCount()
-    distance_parcourue_mm = 0
-    detection = 1
-    Runrun()
-    maqueen.motorStop(maqueen.Motors.All)
-    detection = 0
-})
 function doSomethingRight () {
     runLeftRight(200, 205, 1200)
     runLeftRight(150, 0, 120)
@@ -250,6 +250,6 @@ control.inBackground(function () {
     while (tirette == 0) {
         basic.pause(200)
     }
-    basic.pause(99000)
+    basic.pause(99500)
     Endflower2()
 })
