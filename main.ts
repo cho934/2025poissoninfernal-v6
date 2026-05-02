@@ -10,7 +10,9 @@ function doSomethingLeft2 () {
 }
 function doSomethingLeft3 () {
     runLeftRight(205, 200, 600)
-    runLeftRight(100, 150, 60)
+    basic.pause(200)
+    runLeftRight(0, 150, 100)
+    basic.pause(200)
     runLeftRight(205, 200, 250)
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
@@ -135,7 +137,9 @@ function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number
 }
 function doSomethingRight () {
     runLeftRight(200, 205, 600)
-    runLeftRight(150, 100, 60)
+    basic.pause(200)
+    runLeftRight(150, 10, 70)
+    basic.pause(200)
     runLeftRight(200, 205, 250)
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
