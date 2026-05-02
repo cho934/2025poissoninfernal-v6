@@ -42,6 +42,19 @@ function Runrun () {
         StopMotors()
     }
 }
+function validerEncodeur () {
+    encodeur_ok = false
+    dist_avant = distance_parcourue_mm
+    maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 80)
+    basic.pause(400)
+    maqueen.motorStop(maqueen.Motors.All)
+    basic.pause(150)
+    parcouru = distance_parcourue_mm - dist_avant
+    serial.writeValue("test_enc_mm", parcouru)
+    if (parcouru > 5) {
+        encodeur_ok = true
+    }
+}
 function Endflower2 () {
     bougiewoogie = 1
 }
@@ -147,6 +160,9 @@ function doSomethingRight () {
 let tirette = 0
 let distance = 0
 let dist_run_mm = 0
+let parcouru = 0
+let dist_avant = 0
+let encodeur_ok = false
 let color = 0
 let startDistance_mm = 0
 let singleEncoder: SingleMagEncoder.SingleMagEncoder = null
@@ -190,6 +206,22 @@ maqueen.motorStop(maqueen.Motors.All)
 maqueen.servoRun(maqueen.Servos.S2, 90)
 basic.showIcon(IconNames.Square)
 basic.forever(function () {
+    encodeur_ok = false
+    while (!(encodeur_ok)) {
+        if (singleEncoder.getEncoder1Connected()) {
+            singleEncoder.reset()
+        }
+        basic.pause(200)
+        validerEncodeur()
+        if (!(encodeur_ok)) {
+            basic.showIcon(IconNames.No)
+            music.playTone(2500, 250)
+            basic.pause(300)
+        }
+    }
+    basic.showIcon(IconNames.Yes)
+    basic.pause(1000)
+    basic.showIcon(IconNames.Square)
     while (color == 0) {
         basic.pause(100)
     }
