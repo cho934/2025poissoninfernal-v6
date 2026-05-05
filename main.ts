@@ -51,7 +51,7 @@ function validerEncodeur () {
     basic.pause(150)
     parcouru = distance_parcourue_mm - dist_avant
     serial.writeValue("test_enc_mm", parcouru)
-    if (parcouru > 5) {
+    if (Math.abs(parcouru) > 5) {
         encodeur_ok = true
     }
 }
@@ -193,6 +193,7 @@ true,
 true,
 130000
 )
+basic.pause(200)
 singleEncoder.start()
 basic.clearScreen()
 maqueen.motorStop(maqueen.Motors.All)
@@ -201,9 +202,7 @@ basic.showIcon(IconNames.Square)
 basic.forever(function () {
     encodeur_ok = false
     while (!(encodeur_ok)) {
-        if (singleEncoder.getEncoder1Connected()) {
-            singleEncoder.reset()
-        }
+        singleEncoder.reset()
         basic.pause(200)
         validerEncodeur()
         if (!(encodeur_ok)) {
