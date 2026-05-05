@@ -9,9 +9,9 @@ function doSomethingLeft2 () {
     basic.pause(2000)
 }
 function doSomethingLeft3 () {
-    runLeftRight(205, 200, 600)
+    runLeftRight(215, 190, 600)
     basic.pause(200)
-    runLeftRight(0, 150, 100)
+    runLeftRight(10, 200, 100)
     basic.pause(200)
     runLeftRight(205, 200, 250)
     maqueen.motorStop(maqueen.Motors.All)
@@ -171,13 +171,6 @@ let init_dist_trajet = 0
 let distance_parcourue_mm = 0
 let motor_stop = 0
 let bougiewoogie = 0
-basic.showLeds(`
-    . . # . .
-    . . # . .
-    . . # . .
-    . . # . .
-    . . . . .
-    `)
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
 bougiewoogie = 0
 motor_stop = 0
