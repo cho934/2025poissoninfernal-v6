@@ -65,8 +65,8 @@ function runLeftRight (left: number, right: number, distance_mm: number) {
         serial.writeValue("dist_run_mm", dist_run_mm)
         serial.writeValue("distance_mm", distance_mm)
         if (motor_stop == 0) {
-            maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, left)
-            maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, right)
+            maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, Math.idiv(left * TRIM_LEFT_PCT, 100))
+            maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, Math.idiv(right * TRIM_RIGHT_PCT, 100))
         } else {
             maqueen.motorStop(maqueen.Motors.All)
         }
@@ -79,16 +79,6 @@ function runLeftRight (left: number, right: number, distance_mm: number) {
     }
     maqueen.motorStop(maqueen.Motors.All)
 }
-input.onLogoEvent(TouchButtonEvent.Touched, function () {
-    basic.pause(1000)
-    singleEncoder.reset()
-    singleEncoder.resetTotalCount()
-    distance_parcourue_mm = 0
-    detection = 1
-    Runrun()
-    maqueen.motorStop(maqueen.Motors.All)
-    detection = 0
-})
 function doTurnRight (speed: number, time_ms: number) {
     maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, speed)
     maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 0)
@@ -97,7 +87,7 @@ function doTurnRight (speed: number, time_ms: number) {
 function doVL53L1X () {
     distance = VL53L1X.readSingle()
     serial.writeValue("dist", distance)
-    if (distance < 100) {
+    if (distance < 200) {
         motor_stop = 1
     } else {
         motor_stop = 0
@@ -148,6 +138,16 @@ function runUntilDistanceMMfirst_version_old (distance_mm: number, speed: number
     }
     StopMotors()
 }
+input.onLogoEvent(TouchButtonEvent.Touched, function () {
+    basic.pause(1000)
+    singleEncoder.reset()
+    singleEncoder.resetTotalCount()
+    distance_parcourue_mm = 0
+    detection = 1
+    Runrun()
+    maqueen.motorStop(maqueen.Motors.All)
+    detection = 0
+})
 function doSomethingRight () {
     runLeftRight(200, 205, 600)
     basic.pause(200)
@@ -171,6 +171,10 @@ let init_dist_trajet = 0
 let distance_parcourue_mm = 0
 let motor_stop = 0
 let bougiewoogie = 0
+let TRIM_RIGHT_PCT = 0
+let TRIM_LEFT_PCT = 0
+TRIM_LEFT_PCT = 100
+TRIM_RIGHT_PCT = 100
 pins.touchSetMode(TouchTarget.P0, TouchTargetMode.Resistive)
 bougiewoogie = 0
 motor_stop = 0
