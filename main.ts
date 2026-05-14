@@ -9,9 +9,9 @@ function doSomethingLeft2 () {
     basic.pause(2000)
 }
 function doSomethingLeft3 () {
-    runLeftRight(215, 190, 600)
+    runLeftRight(170, 250, 600)
     basic.pause(200)
-    runLeftRight(10, 200, 100)
+    runLeftRight(10, 250, 150)
     basic.pause(200)
     runLeftRight(205, 200, 250)
     maqueen.motorStop(maqueen.Motors.All)
@@ -149,11 +149,11 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
     detection = 0
 })
 function doSomethingRight () {
-    runLeftRight(200, 205, 600)
+    runLeftRight(200, 240, 800)
     basic.pause(200)
-    runLeftRight(150, 10, 70)
+    runLeftRight(150, 10, 80)
     basic.pause(200)
-    runLeftRight(200, 205, 250)
+    runLeftRight(205, 200, 250)
     maqueen.motorStop(maqueen.Motors.All)
     Endflower2()
 }
